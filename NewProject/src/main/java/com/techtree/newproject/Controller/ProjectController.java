@@ -1,7 +1,6 @@
 package com.techtree.newproject.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techtree.newproject.Service.ProjectService;
+import com.techtree.newproject.model.EmpBean;
 import com.techtree.newproject.model.Employee;
 
 @RestController
@@ -26,7 +26,7 @@ public class ProjectController {
 
 	// build create emplye restapi
 	@PostMapping("/saveemployee")
-	public ResponseEntity<Object> saveEmployee(@RequestBody Employee employee) {
+	public ResponseEntity<Object> saveEmployee(@RequestBody EmpBean employee) {
 		System.out.println(employee.getLaptop());
 
 		return Projectservice.saveEmployee(employee);

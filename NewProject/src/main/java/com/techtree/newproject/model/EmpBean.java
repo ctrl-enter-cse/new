@@ -1,12 +1,15 @@
 package com.techtree.newproject.model;
 
+import java.util.List;
+
 public class EmpBean {
 
 	private long Id;
 	private String Fname;
 	private String Lname;
 	private String Email;
-	private laptop Laptop;
+	
+	private List<lapBean> Laptop;
 	public long getId() {
 		return Id;
 	}
@@ -31,11 +34,12 @@ public class EmpBean {
 	public void setEmail(String email) {
 		Email = email;
 	}
-	public laptop getLaptop() {
+	public List<lapBean> getLaptop() {
 		return Laptop;
 	}
-	public void setLaptop(laptop laptop) {
+	public void setLaptop(List<lapBean> laptop) {
 		Laptop = laptop;
 	}
+	
 	
 }

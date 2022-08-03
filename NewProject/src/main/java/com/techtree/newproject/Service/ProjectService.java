@@ -5,11 +5,12 @@ package com.techtree.newproject.Service;
 
 import org.springframework.http.ResponseEntity;
 
+import com.techtree.newproject.model.EmpBean;
 import com.techtree.newproject.model.Employee;
 
 public interface ProjectService {
 
-	public ResponseEntity<Object> saveEmployee(Employee employee);
+	public ResponseEntity<Object> saveEmployee(EmpBean employee);
 
 	public ResponseEntity<Object> getemployeelist();
 

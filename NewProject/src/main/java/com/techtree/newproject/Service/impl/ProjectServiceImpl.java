@@ -2,12 +2,9 @@ package com.techtree.newproject.Service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,7 @@ public class ProjectServiceImpl implements ProjectService {
 	ProjectRepository projectrepo;
 
 	@Override
-	public ResponseEntity<Object> saveEmployee(Employee employee) {
+	public ResponseEntity<Object> saveEmployee(EmpBean employee) {
 		try {
 			if (employee != null) {
 				Employee e = new Employee();
@@ -41,18 +38,16 @@ public class ProjectServiceImpl implements ProjectService {
 				e.setLname(employee.getLname());
 				e.setEmail(employee.getEmail());
 				List<lapBean> list = employee.getLaptop();
-				laptop l1 = new laptop();
+				List<laptop> list1 = new ArrayList<>();
 				for (int i = 0; i < list.size(); i++) {
-					laptop lap = list.get(i);
+					laptop l1 = new laptop();
+					lapBean lap = list.get(i);
 					l1.setId(lap.getId());
 					l1.setLaptopName(lap.getLaptopName());
+					list1.add(l1);
 				}
-				e.setLaptop(list);
-//					l1.setId(employee.getLaptop();
-////					l1.setId(employee.getLaptop());
-//					l1.setLaptopName(employee.getLaptop());
-//					l.setEmp(e);
-				System.out.println(e.getLaptop());
+				e.setLaptop(list1);
+
 				Employee e1 = projectrepo.save(e);
 
 				return new ResponseEntity<Object>(e1.getId(), HttpStatus.OK);
