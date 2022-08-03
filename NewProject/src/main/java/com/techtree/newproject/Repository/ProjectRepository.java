@@ -19,13 +19,17 @@ public interface ProjectRepository extends  JpaRepository<Employee,Long> {
 	List<Employee> findByFnameContainingOrLnameContainingOrEmailContaining(String fname,String lname ,String email);
 	List<Employee> findByFnameContaining(String fname);
 //	List<Employee> findByFnameExacts(String fname);
+//	
+//	@Query("Select u from Employee u")
+//	List<Employee> getallEmp();
+//	
+//	@Modifying
+//	@Query("update  Employee e set e.fname=:n where e.id=:id ")
+//	Integer  updateData(@Param("n") String name, @Param("id") Long id);
 	
-	@Query("Select u from Employee u")
-	List<Employee> getallEmp();
 	
-	@Modifying
-	@Query("update  Employee e set e.fname=:n where e.id=:id ")
-	Integer  updateData(@Param("n") String name, @Param("id") Long id);
+//	List<Employee> findByIdAndEmail();
 
 //	List<Employee> findByFname
+	
 }

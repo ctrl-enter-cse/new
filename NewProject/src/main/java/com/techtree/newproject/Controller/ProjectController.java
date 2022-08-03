@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techtree.newproject.Service.ProjectService;
-import com.techtree.newproject.Service.impl.ProjectServiceImpl;
 import com.techtree.newproject.model.Employee;
 
 @RestController
@@ -28,8 +27,10 @@ public class ProjectController {
 	// build create emplye restapi
 	@PostMapping("/saveemployee")
 	public ResponseEntity<Object> saveEmployee(@RequestBody Employee employee) {
-		System.out.println(employee);
+		System.out.println(employee.getLaptop());
+
 		return Projectservice.saveEmployee(employee);
+		
 	}
 
 	@GetMapping("/getemployeelist")
@@ -44,8 +45,8 @@ public class ProjectController {
 	}
 
 	@PutMapping("/updateemployee/{id}")
-	public ResponseEntity<Object> updateEmployee(@PathVariable("id") long id, @RequestBody String name) {
-		return new ResponseEntity<Object>(Projectservice.updateemp(name, id), HttpStatus.OK);
+	public ResponseEntity<Object> updateEmployee(@PathVariable("id") long id, @RequestBody Employee data) {
+		return new ResponseEntity<Object>(Projectservice.updateemp(data, id), HttpStatus.OK);
 
 	}
 
@@ -55,12 +56,12 @@ public class ProjectController {
 		return new ResponseEntity<String>("Deleted ", HttpStatus.OK);
 	}
 
-	@GetMapping("/searchdata")
+	@PostMapping("/searchdata")
 	public ResponseEntity<Object> searchdata(@RequestParam("data") String data) {
-		return Projectservice.Searchdata(data, data, data);
+		return Projectservice.Searchdataexact(data, data, data);
 	}
 
-	@GetMapping("/searchdataLikes")
+	@PostMapping("/searchdataLikes")
 	public ResponseEntity<Object> searchdataLike(@RequestParam("data") String data) {
 		return Projectservice.SearchdataLikes(data, data, data);
 	}
@@ -70,21 +71,14 @@ public class ProjectController {
 //			return employeeservice.saveEmployee1( employee);	
 //		}
 
-	@PutMapping("/updatefname/{id}")
-	public ResponseEntity<Object> updatename(@RequestBody String name, @PathVariable("id") long id) {
-
-		return new ResponseEntity<Object>(Projectservice.updateemp(name, id), HttpStatus.OK);
-	}
-
 	@PostMapping("/searchby")
 	public ResponseEntity<Object> findByTitleContaining(@RequestParam("title") String title) {
 		return new ResponseEntity<Object>(Projectservice.findByfnameContaining(title), HttpStatus.OK);
-
 	}
 
 	@PostMapping("/searchbyexact")
-	public ResponseEntity<Object> findByTitleLike(@RequestParam("title") String title) {
-		return new ResponseEntity<Object>(Projectservice.findByfnameexactContaining(title), HttpStatus.OK);
+	public ResponseEntity<Object> findByData(@RequestParam("title") String title) {
+		return new ResponseEntity<Object>(Projectservice.findByexact(title), HttpStatus.OK);
 	}
 
 	@GetMapping("/{field}/{order}")

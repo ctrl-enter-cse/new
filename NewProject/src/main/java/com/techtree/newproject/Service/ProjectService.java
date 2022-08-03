@@ -17,25 +17,26 @@ public interface ProjectService {
 
 	public ResponseEntity<Object> deleteEmployee(long id);
 
-	ResponseEntity<Object> Searchdata(String data1,String data2,String data3);
+	ResponseEntity<Object> Searchdataexact(String data1,String data2,String data3);
 	
 	ResponseEntity<Object> SearchdataLikes(String data1,String data2,String data3);
 	
-	
 
-	ResponseEntity<Object> updateemp(String name, long id);
+	ResponseEntity<Object> updateemp(Employee name, long id);
 
 //search by feild 
 	public ResponseEntity<Object> findEmployeeWithSorting(String field, String order);
 
 // like from with jpa onlu
-	ResponseEntity<Object> findByfnameContaining(String fname);
+	ResponseEntity<Object> findByfnameContaining(String data);
 
 //exact search
-	ResponseEntity<Object> findByfnameexactContaining(String fname);
+	ResponseEntity<Object> findByexact(String fname);
 
 // seach by pageniation
 	public ResponseEntity<Object> findEmpByPagination(int offset, int pagesize);
 	public ResponseEntity<Object> getAllEmp();
+	
+	
 
 }
