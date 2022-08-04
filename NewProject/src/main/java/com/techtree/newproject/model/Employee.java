@@ -3,6 +3,7 @@ package com.techtree.newproject.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Employee {
 	@Column(name="email", nullable=false)
 	private String email;
 
-	@OneToMany(mappedBy="emp")
+	@OneToMany(mappedBy="emp",cascade = CascadeType.ALL)
 	private List<laptop> laptop;
 
 	public long getId() {
@@ -67,7 +68,5 @@ public class Employee {
 	public void setLaptop(List<laptop> laptop) {
 		this.laptop = laptop;
 	}
-
-
 
 }

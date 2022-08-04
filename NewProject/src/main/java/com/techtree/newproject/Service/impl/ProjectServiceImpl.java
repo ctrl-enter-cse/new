@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.json.JSONObject;
+//import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -44,7 +44,9 @@ public class ProjectServiceImpl implements ProjectService {
 					lapBean lap = list.get(i);
 					l1.setId(lap.getId());
 					l1.setLaptopName(lap.getLaptopName());
+					l1.setEmp(e);
 					list1.add(l1);
+					System.out.println(l1);
 				}
 				e.setLaptop(list1);
 
@@ -95,16 +97,16 @@ public class ProjectServiceImpl implements ProjectService {
 			empBean.setLname(emp.getLname());
 			empBean.setEmail(emp.getEmail());
 //		empBean.setLaptop(emp.getLaptop());
-			Gson g = new Gson();
-			String json = g.toJson(empBean);
-			JSONObject js = new JSONObject(json);
-			js.put("key", 101);
-			System.out.println(js);
+//			Gson g = new Gson();
+//			String json = g.toJson(empBean);
+//			JSONObject js = new JSONObject(json);
+//			js.put("key", 101);
+//			System.out.println(js);
 
-			Employee e = g.fromJson(js.toString(), Employee.class);
-			// res.put("data found ",emp);
-			System.out.println(e);
-			res.put("values:", js.toString());
+//			Employee e = g.fromJson(js.toString(), Employee.class);
+//			// res.put("data found ",emp);
+//			System.out.println(e);
+//			res.put("values:", js.toString());
 			return new ResponseEntity<Object>(res, HttpStatus.OK);
 
 		}
