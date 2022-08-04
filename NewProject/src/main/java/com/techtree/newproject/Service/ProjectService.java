@@ -6,7 +6,11 @@ package com.techtree.newproject.Service;
 import org.springframework.http.ResponseEntity;
 
 import com.techtree.newproject.model.EmpBean;
-import com.techtree.newproject.model.Employee;
+
+
+
+
+
 
 public interface ProjectService {
 
@@ -23,7 +27,7 @@ public interface ProjectService {
 	ResponseEntity<Object> SearchdataLikes(String data1,String data2,String data3);
 	
 
-	ResponseEntity<Object> updateemp(Employee name, long id);
+	ResponseEntity<Object> updateemp(EmpBean data, long id);
 
 //search by feild 
 	public ResponseEntity<Object> findEmployeeWithSorting(String field, String order);

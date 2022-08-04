@@ -7,6 +7,14 @@ public class lapBean {
 	
 	private EmpBean emp;
 	
+	private DeviceBean device;
+	
+	public DeviceBean getDevice() {
+		return device;
+	}
+	public void setDevice(DeviceBean device) {
+		this.device = device;
+	}
 	public long getId() {
 		return id;
 	}

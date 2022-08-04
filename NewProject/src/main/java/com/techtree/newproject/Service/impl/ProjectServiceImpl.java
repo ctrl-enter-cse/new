@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-//import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,6 +16,10 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 import com.techtree.newproject.Repository.ProjectRepository;
 import com.techtree.newproject.Service.ProjectService;
+import com.techtree.newproject.model.AccesoriesBean;
+import com.techtree.newproject.model.Accessories;
+import com.techtree.newproject.model.Device;
+import com.techtree.newproject.model.DeviceBean;
 import com.techtree.newproject.model.EmpBean;
 import com.techtree.newproject.model.Employee;
 import com.techtree.newproject.model.lapBean;
@@ -30,6 +33,7 @@ public class ProjectServiceImpl implements ProjectService {
 
 	@Override
 	public ResponseEntity<Object> saveEmployee(EmpBean employee) {
+		System.out.println(employee);
 		try {
 			if (employee != null) {
 				Employee e = new Employee();
@@ -46,15 +50,41 @@ public class ProjectServiceImpl implements ProjectService {
 					l1.setLaptopName(lap.getLaptopName());
 					l1.setEmp(e);
 					list1.add(l1);
-					System.out.println(l1);
+			
+					DeviceBean db =list.get(i).getDevice();
+					Device d=new Device();
+					d.setDiv_id(db.getId());
+					d.setLap(l1);	
+					
+					List<AccesoriesBean> ac=db.getAccessories();
+					List<Accessories> acentity =new ArrayList<>();
+ 					for(int j =0;j<ac.size();j++) {
+						AccesoriesBean acbean=ac.get(j);
+						Accessories accenitity=new Accessories();
+						accenitity.setAcc_id(acbean.getAcc_id());
+						accenitity.setItem1(acbean.getItem1());
+						accenitity.setItem2(acbean.getItem2());
+						
+					List<DeviceBean>devbean=acbean.getDevice();
+					List<Device> dbenitity =new ArrayList<>();
+						for(int k=0;k<devbean.size();k++){
+							DeviceBean dvb=devbean.get(k);
+							Device dentity=new Device();
+							dentity.setDiv_id(dvb.getId());
+							dentity.setLap(dvb.getLap());
+							dentity.setAccessories(acentity);
+							dbenitity.add(dentity);
+						}
+						accenitity.setDevice(dbenitity);
+					}
+					l1.setDevice(d);
 				}
 				e.setLaptop(list1);
-
 				Employee e1 = projectrepo.save(e);
 
 				return new ResponseEntity<Object>(e1.getId(), HttpStatus.OK);
 			} else {
-				return new ResponseEntity<Object>("data not found:" + employee, HttpStatus.OK);
+				return new ResponseEntity<Object>("data not found:" + employee, HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,19 +126,26 @@ public class ProjectServiceImpl implements ProjectService {
 			empBean.setFname(emp.getFname());
 			empBean.setLname(emp.getLname());
 			empBean.setEmail(emp.getEmail());
-//		empBean.setLaptop(emp.getLaptop());
-//			Gson g = new Gson();
-//			String json = g.toJson(empBean);
+			List<laptop> laplist=emp.getLaptop();
+			List<lapBean> lapbean=new ArrayList<>();
+			for(int i=0;i<laplist.size();i++) {
+				lapBean lap=new lapBean();
+				lap.setId(laplist.get(i).getId());
+				lap.setLaptopName(laplist.get(i).getLaptopName());
+				lapbean.add(lap);
+			}
+			empBean.setLaptop(lapbean);
+			Gson g = new Gson();
+			String json = g.toJson(empBean);
 //			JSONObject js = new JSONObject(json);
 //			js.put("key", 101);
 //			System.out.println(js);
-
+//
 //			Employee e = g.fromJson(js.toString(), Employee.class);
 //			// res.put("data found ",emp);
 //			System.out.println(e);
 //			res.put("values:", js.toString());
-			return new ResponseEntity<Object>(res, HttpStatus.OK);
-
+//			return new ResponseEntity<Object>(res, HttpStatus.OK);
 		}
 //			else{
 //				return new ResponseEntity<Object>("No recod found", HttpStatus.BAD_REQUEST);
@@ -160,7 +197,7 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public ResponseEntity<Object> updateemp(Employee data, long id) {
+	public ResponseEntity<Object> updateemp(EmpBean data, long id) {
 		try {
 			Optional<Employee> updateddata = projectrepo.findById(id);
 

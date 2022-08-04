@@ -45,7 +45,7 @@ public class ProjectController {
 	}
 
 	@PutMapping("/updateemployee/{id}")
-	public ResponseEntity<Object> updateEmployee(@PathVariable("id") long id, @RequestBody Employee data) {
+	public ResponseEntity<Object> updateEmployee(@PathVariable("id") long id, @RequestBody EmpBean data) {
 		return new ResponseEntity<Object>(Projectservice.updateemp(data, id), HttpStatus.OK);
 
 	}
